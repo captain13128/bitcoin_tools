@@ -5,13 +5,11 @@ from binascii import unhexlify, hexlify
 from bitcoin.core.script import *
 
 
-class Script:
+class Script(metaclass=ABCMeta):
     """ Defines the class Script which includes two subclasses, InputScript and OutputScript. Every script type have two
     custom 'constructors' (from_hex and from_human), and four templates for the most common standard script types
     (P2PK, P2PKH, P2MS and P2PSH).
     """
-
-    __metaclass__ = ABCMeta
 
     def __init__(self):
         self.content = ""
@@ -282,7 +280,7 @@ class OutputScript(Script):
         if n != len(pks):
             raise Exception("The provided number of keys does not match the expected one: " + str(len(pks)) +
                             "!=" + str(n))
-        elif m not in range(1, 15) or n not in range(1, 15):
+        elif m not in list(range(1, 15)) or n not in list(range(1, 15)):
             raise Exception("Multisig transactions must be 15-15 at max")
         else:
             s = "OP_" + str(m)

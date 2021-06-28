@@ -1,4 +1,4 @@
-from urllib2 import urlopen, Request
+from urllib.request import urlopen, Request
 from json import loads
 
 
@@ -179,7 +179,7 @@ def check_address(btc_addr, network='test'):
         raise Exception("Wrong mainnet address format.")
     elif network not in ['test', 'testnet', 'main', 'mainnet']:
         raise Exception("Network must be test/testnet or main/mainnet")
-    elif len(btc_addr) not in range(26, 35+1):
+    elif len(btc_addr) not in list(range(26, 35+1)):
         raise Exception("Wrong address format, Bitcoin addresses should be 27-35 hex char long.")
     else:
         return True

@@ -33,7 +33,7 @@ prev_out_index = utxo.get('index')
 # Load the keys from the loaded addresses (you should have them!). Notice that since we are going to create a P2MS tx
 # from a P2MS UTXO, several keys will be required.
 source_btc_addrs = utxo.get('btc_addr')
-keys = map(load_keys, source_btc_addrs)
+keys = list(map(load_keys, source_btc_addrs))
 sks = [k[0] for k in keys]
 pks = [k[1] for k in keys]
 
@@ -56,7 +56,7 @@ tx = TX.build_from_io(prev_tx_id, prev_out_index, value - fee, destination)
 tx.sign(sks[0], 0)
 
 # Once created we can display the serialized transaction. Transaction is now ready to be broadcast.
-print "hex: " + tx.serialize()
+print("hex: " + tx.serialize())
 
 # Finally, we can analyze each field of the transaction.
 tx.display()

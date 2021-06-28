@@ -305,15 +305,15 @@ def display_decoded_utxo(decoded_utxo):
     :rtype: None
     """
 
-    print "isCoinbase: " + str(decoded_utxo['coinbase'])
+    print("isCoinbase: " + str(decoded_utxo['coinbase']))
 
     out = decoded_utxo['out']
-    print "vout[" + str(decoded_utxo['index']) + "]:"
-    print "\tSatoshi amount: " + str(out['amount'])
-    print "\tOutput code type: " + str(out['out_type'])
-    print "\tHash160 (Address): " + out['data']
+    print("vout[" + str(decoded_utxo['index']) + "]:")
+    print("\tSatoshi amount: " + str(out['amount']))
+    print("\tOutput code type: " + str(out['out_type']))
+    print("\tHash160 (Address): " + out['data'])
 
-    print "Block height: " + str(decoded_utxo['height'])
+    print("Block height: " + str(decoded_utxo['height']))
 
 
 def parse_ldb(fout_name, fin_name=CFG.chainstate_path, decode=True):
@@ -508,10 +508,10 @@ def check_multisig(script, std=True):
 
     if std:
         # Standard bare Pay-to-multisig only accepts up to 3-3.
-        r = range(81, 83)
+        r = list(range(81, 83))
     else:
         # m-of-n combination is valid up to 20.
-        r = range(84, 101)
+        r = list(range(84, 101))
 
     if int(script[:2], 16) in r and script[2:4] in ["21", "41"] and script[-2:] == "ae":
         return True
@@ -624,9 +624,9 @@ def get_min_input_size(out, height, count_p2sh=False, coin="bitcoin", compressed
         else:
             height_limit = compressed_pk_height
             if height_limit == 0:
-                print "Warning: You are calculating the minimum input size for a coin other than Bitcoin, " \
+                print("Warning: You are calculating the minimum input size for a coin other than Bitcoin, " \
                       "Bitcoin Cash and Litecoin. By default the height ar which compressed public keys where first " \
-                      "used is not set, so 0 is used. Consider changing the compressed_pk_height "
+                      "used is not set, so 0 is used. Consider changing the compressed_pk_height ")
 
         if height < height_limit:
             # uncompressed keys
@@ -701,7 +701,7 @@ def load_estimation_data(coin):
             p2wsh_scriptsize = ujson.load(f)
 
     except IOError:
-        print "Warning: No estimation data found. Non-profitable estimation charts will always show 0."
+        print("Warning: No estimation data found. Non-profitable estimation charts will always show 0.")
         p2pkh_pksize, p2sh_scriptsize, nonstd_scriptsize, p2wsh_scriptsize, max_height = None, None, None, None, None
 
     return p2pkh_pksize, p2sh_scriptsize, nonstd_scriptsize, p2wsh_scriptsize, max_height
@@ -757,7 +757,7 @@ def get_est_input_size(out, height, p2pkh_pksize, p2sh_scriptsize, nonstd_script
     # If we don't have updated estimation data, a warning will be displayed and the last estimation point will be used
     # for the rest of values.
     if height >= max_height:
-        print "Warning: There is no estimation data for that height. The last available estimation will be used."
+        print("Warning: There is no estimation data for that height. The last available estimation will be used.")
 
     if out_type is 0:
         # P2PKH

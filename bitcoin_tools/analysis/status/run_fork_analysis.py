@@ -58,14 +58,14 @@ if __name__ == '__main__':
     # For btc vs bu on 2018-02-06: 41 GB mem
     set_int = keys_bu.intersection(keys_btc)
     # For btc vs bu on 2018-02-06: 42.6 GB
-    print("There are {} UTXOs in common".format(len(set_int)))
+    print(("There are {} UTXOs in common".format(len(set_int))))
     pickle.dump(set_int, open("bu_btc_keys_intersect.pickle", "wb"))
 
     # After/before fork
     before_btc, after_btc = count_before_fork(decoded_utxo_files[0])
     before_bu, after_bu = count_before_fork(decoded_utxo_files[1])
 
-    print("Bitcoin UTXO set has {} UTXOs with height <= fork date (of a total of {})".
-          format(before_btc, before_btc + after_btc))
-    print("BitcoinCash UTXO set has {} UTXOs with height <= fork date  (of a total of {})".
-          format(before_bu, before_bu + after_bu))
+    print(("Bitcoin UTXO set has {} UTXOs with height <= fork date (of a total of {})".
+          format(before_btc, before_btc + after_btc)))
+    print(("BitcoinCash UTXO set has {} UTXOs with height <= fork date  (of a total of {})".
+          format(before_bu, before_bu + after_bu)))

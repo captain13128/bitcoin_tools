@@ -34,9 +34,9 @@ def compare_dust(dust_files, legend, suffix=''):
         value.append(data['npest_value'])
         length.append(data['npest_data_len'])
 
-    xs_utxos, ys_utxos = [sorted(u.keys(), key=int) for u in utxos], [sorted(u.values(), key=int) for u in utxos]
-    xs_value, ys_value = [sorted(v.keys(), key=int) for v in value], [sorted(v.values(), key=int) for v in value]
-    xs_length, ys_length = [sorted(l.keys(), key=int) for l in length], [sorted(l.values(), key=int) for l in length]
+    xs_utxos, ys_utxos = [sorted(list(u.keys()), key=int) for u in utxos], [sorted(list(u.values()), key=int) for u in utxos]
+    xs_value, ys_value = [sorted(list(v.keys()), key=int) for v in value], [sorted(list(v.values()), key=int) for v in value]
+    xs_length, ys_length = [sorted(list(l.keys()), key=int) for l in length], [sorted(list(l.values()), key=int) for l in length]
 
     x_samples = [xs_utxos, xs_value, xs_length]
     y_samples = [ys_utxos, ys_value, ys_length]
@@ -79,7 +79,7 @@ def compare_attribute(fin_names, x_attribute, out_name, xlabel='', legend=''):
     xs = []
     ys = []
     for _ in range(len(samples)):
-        x, y = get_cdf(samples.pop(0).values(), normalize=True)
+        x, y = get_cdf(list(samples.pop(0).values()), normalize=True)
         xs.append(x)
         ys.append(y)
 
@@ -134,13 +134,13 @@ def run_experiment(f_dust, f_parsed_utxos, f_parsed_txs):
     :rtype: None
     """
 
-    print "Running comparative data analysis."
+    print("Running comparative data analysis.")
     # Comparative dust analysis between different snapshots
     fin_names = ['height-' + str(i) + 'K/' + f_parsed_utxos + '.json' for i in range(100, 550, 50)]
     dust_files = ['height-' + str(i) + 'K/' + f_dust + '.json' for i in range(100, 550, 50)]
     legend = [str(i) + 'K' for i in range(100, 550, 50)]
 
-    print "Comparing dust from different snapshots."
+    print("Comparing dust from different snapshots.")
     # Get dust files from different dates to compare (Change / Add the ones you'll need)
     compare_dust(dust_files=dust_files, legend=legend)
 
@@ -154,12 +154,12 @@ def run_experiment(f_dust, f_parsed_utxos, f_parsed_txs):
 
     # Comparative analysis between different snapshots
     # UTXO amount comparison
-    print "Comparing UTXO amount from different snapshots."
+    print("Comparing UTXO amount from different snapshots.")
     compare_attribute(fin_names=fin_names, x_attribute='amount', xlabel='Amount (Satoshi)', legend=legend,
                       out_name='cmp_utxo_amount')
 
     # UTXO size comparison
-    print "Comparing UTXO size from different snapshots."
+    print("Comparing UTXO size from different snapshots.")
     compare_attribute(fin_names=fin_names, x_attribute='register_len', xlabel='Size (bytes)', legend=legend,
                       out_name='cmp_utxo_size')
 

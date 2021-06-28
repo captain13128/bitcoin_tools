@@ -26,28 +26,28 @@ for addr in btc_addrs:
 
 for i in range(3):
     if i is 0:
-        print "\n#############\n# FROM P2PK #\n#############"
+        print("\n#############\n# FROM P2PK #\n#############")
         sk = sks[i]
     elif i is 1:
-        print "##############\n# FROM P2PKH #\n##############"
+        print("##############\n# FROM P2PKH #\n##############")
         sk = sks[i]
     elif i is 2:
-        print "#############\n# FROM P2MS #\n#############"
+        print("#############\n# FROM P2MS #\n#############")
         sk = sks[:i]
     for j in range(3):
         if j is 0:
-            print "\nTO: P2PK\n"
+            print("\nTO: P2PK\n")
             dest = serialize_pk(pks[j])
         elif j is 1:
-            print "\nTO: P2PKH\n"
+            print("\nTO: P2PKH\n")
             dest = btc_addrs[j]
         elif j is 2:
-            print "\nTO: P2MS\n"
+            print("\nTO: P2MS\n")
             dest = [2, serialize_pk(pks[0]), serialize_pk(pks[1])]
 
         tx = TX.build_from_io(prev_tx_ids[i], prev_out_index[i], value, dest)
         tx.sign(sk, 0)
-        print tx.serialize()
+        print(tx.serialize())
         tx.display()
 
-    print "\n---------------------------------------------------------------------------------------------\n"
+    print("\n---------------------------------------------------------------------------------------------\n")

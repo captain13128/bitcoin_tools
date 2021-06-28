@@ -47,7 +47,7 @@ fee = 230 * 240
 
 # To create the destination script, we need to include first the number of required signatures (2), and then, the
 # all the public keys.
-destination = [2, serialize_pk(pks[0]), serialize_pk(pks[1]),  serialize_pk(pks[2])]
+destination = [2, serialize_pk(pks[0]), serialize_pk(pks[1]), serialize_pk(pks[2])]
 # Using map will also do the trick.
 # destination = [2] + map(serialize_pk, pks)
 
@@ -60,5 +60,3 @@ print("hex: " + tx.serialize())
 
 # Finally, we can analyze each field of the transaction.
 tx.display()
-
-

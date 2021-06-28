@@ -34,9 +34,12 @@ def compare_dust(dust_files, legend, suffix=''):
         value.append(data['npest_value'])
         length.append(data['npest_data_len'])
 
-    xs_utxos, ys_utxos = [sorted(list(u.keys()), key=int) for u in utxos], [sorted(list(u.values()), key=int) for u in utxos]
-    xs_value, ys_value = [sorted(list(v.keys()), key=int) for v in value], [sorted(list(v.values()), key=int) for v in value]
-    xs_length, ys_length = [sorted(list(l.keys()), key=int) for l in length], [sorted(list(l.values()), key=int) for l in length]
+    xs_utxos, ys_utxos = [sorted(list(u.keys()), key=int) for u in utxos], [sorted(list(u.values()), key=int) for u in
+                                                                            utxos]
+    xs_value, ys_value = [sorted(list(v.keys()), key=int) for v in value], [sorted(list(v.values()), key=int) for v in
+                                                                            value]
+    xs_length, ys_length = [sorted(list(l.keys()), key=int) for l in length], [sorted(list(l.values()), key=int) for l
+                                                                               in length]
 
     x_samples = [xs_utxos, xs_value, xs_length]
     y_samples = [ys_utxos, ys_value, ys_length]
@@ -83,7 +86,7 @@ def compare_attribute(fin_names, x_attribute, out_name, xlabel='', legend=''):
         xs.append(x)
         ys.append(y)
 
-    plots_from_samples(xs=xs, ys=ys, xlabel=xlabel, save_fig=out_name,  legend=legend, log_axis='x',
+    plots_from_samples(xs=xs, ys=ys, xlabel=xlabel, save_fig=out_name, legend=legend, log_axis='x',
                        ylabel="Number of UTXOs", legend_loc=2)
 
 
@@ -148,7 +151,7 @@ def run_experiment(f_dust, f_parsed_utxos, f_parsed_txs):
     dust_files = ['height-' + str(i) + 'K/' + f_dust + '_p2pkh_only.json' for i in range(100, 550, 50)]
 
     for utxo_fin, dust_fout in zip(fin_names, dust_files):
-         aggregate_dust_np(utxo_fin, dust_fout, fltr=lambda x: x['out_type'] == 0)
+        aggregate_dust_np(utxo_fin, dust_fout, fltr=lambda x: x['out_type'] == 0)
 
     compare_dust(dust_files=dust_files, legend=legend, suffix='_p2pkh')
 
@@ -168,7 +171,6 @@ def run_experiment(f_dust, f_parsed_utxos, f_parsed_txs):
 
 
 if __name__ == '__main__':
-
     f_dust = 'dust_wp2sh'
     f_parsed_utxos = 'parsed_utxos_wp2sh'
     f_parsed_txs = 'parsed_txs'

@@ -30,7 +30,7 @@ def int2bytes(a, b):
     :rtype: hex str
     """
 
-    m = pow(2, 8*b) - 1
+    m = pow(2, 8 * b) - 1
     if a > m:
         raise Exception(str(a) + " is too big to be represented with " + str(b) + " bytes. Maximum value is "
                         + str(m) + ".")
@@ -179,7 +179,7 @@ def check_address(btc_addr, network='test'):
         raise Exception("Wrong mainnet address format.")
     elif network not in ['test', 'testnet', 'main', 'mainnet']:
         raise Exception("Network must be test/testnet or main/mainnet")
-    elif len(btc_addr) not in list(range(26, 35+1)):
+    elif len(btc_addr) not in list(range(26, 35 + 1)):
         raise Exception("Wrong address format, Bitcoin addresses should be 27-35 hex char long.")
     else:
         return True
@@ -215,8 +215,8 @@ def check_script(script):
 
     if not isinstance(script, str):
         raise Exception("Wrong script format.")
-    elif len(script)/2 != 20:
-        raise Exception("Wrong signature length " + str(len(script)/2))
+    elif len(script) / 2 != 20:
+        raise Exception("Wrong signature length " + str(len(script) / 2))
     else:
         return True
 
@@ -334,6 +334,3 @@ def parse_script_type(t):
         r = "unknown"
 
     return r
-
-
-

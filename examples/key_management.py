@@ -22,6 +22,3 @@ store_keys(sk.to_pem(), pk.to_pem(), btc_addr)
 generate_wif(btc_addr, sk)
 
 print("Keys for address " + btc_addr + " properly generated and stored.")
-
-
-

@@ -13,8 +13,7 @@ script_hash = b2a_hex(hash_160(Script.serialize(script)))
 sigs = [signature]
 pks = [pk, pk]
 
-
-print ("OUTPUT SCRIPTS")
+print("OUTPUT SCRIPTS")
 
 o = OutputScript.P2PK(pk)
 print(o.type, o.content)
@@ -28,7 +27,7 @@ print(o.type, o.content)
 o = OutputScript.P2SH(script_hash)
 print(o.type, o.content)
 
-print ("\nINPUT SCRIPTS")
+print("\nINPUT SCRIPTS")
 
 i = InputScript().P2PK(signature)
 print(i.type, i.content)
@@ -41,4 +40,3 @@ print(i.type, i.content)
 
 i = InputScript().P2SH(data, script)
 print(i.type, i.content)
-

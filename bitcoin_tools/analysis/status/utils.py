@@ -163,14 +163,14 @@ def parse_b128(utxo, offset=0):
     :rtype: hex str, int
     """
 
-    data = utxo[offset:offset+2]
+    data = utxo[offset:offset + 2]
     offset += 2
     more_bytes = int(data, 16) & 0x80  # MSB b128 Varints have set the bit 128 for every byte but the last one,
     # indicating that there is an additional byte following the one being analyzed. If bit 128 of the byte being read is
     # not set, we are analyzing the last byte, otherwise, we should continue reading.
     while more_bytes:
-        data += utxo[offset:offset+2]
-        more_bytes = int(utxo[offset:offset+2], 16) & 0x80
+        data += utxo[offset:offset + 2]
+        more_bytes = int(utxo[offset:offset + 2], 16) & 0x80
         offset += 2
 
     return data, offset
@@ -414,7 +414,7 @@ def aggregate_dust_np(fin_name, fout_name="dust.json", fltr=None):
     # Input file
     fin = open(CFG.data_path + fin_name, 'r')
 
-    dust = {fee_per_byte: 0 for fee_per_byte in range(MIN_FEE_PER_BYTE, MAX_FEE_PER_BYTE+FEE_STEP, FEE_STEP)}
+    dust = {fee_per_byte: 0 for fee_per_byte in range(MIN_FEE_PER_BYTE, MAX_FEE_PER_BYTE + FEE_STEP, FEE_STEP)}
     value_dust = deepcopy(dust)
     data_len_dust = deepcopy(dust)
 
@@ -467,7 +467,7 @@ def aggregate_dust_np(fin_name, fout_name="dust.json", fltr=None):
 
     # Moreover, since if an output is dust/non-profitable for a given threshold, it will also be for every other step
     # onwards, we accumulate the result of a given step with the accumulated value from the previous step.
-    for fee_per_byte in range(MIN_FEE_PER_BYTE+FEE_STEP, MAX_FEE_PER_BYTE, FEE_STEP):
+    for fee_per_byte in range(MIN_FEE_PER_BYTE + FEE_STEP, MAX_FEE_PER_BYTE, FEE_STEP):
         dust[fee_per_byte] += dust[fee_per_byte - FEE_STEP]
         value_dust[fee_per_byte] += value_dust[fee_per_byte - FEE_STEP]
         data_len_dust[fee_per_byte] += data_len_dust[fee_per_byte - FEE_STEP]
@@ -564,10 +564,10 @@ def check_native_segwit(script):
     :rtype: tuple, first element boolean
     """
 
-    if len(script) == 22*2 and script[:4] == "0014":
+    if len(script) == 22 * 2 and script[:4] == "0014":
         return True, "P2WPKH"
 
-    if len(script) == 34*2 and script[:4] == "0020":
+    if len(script) == 34 * 2 and script[:4] == "0020":
         return True, "P2WSH"
 
     return False, None
@@ -664,7 +664,7 @@ def get_min_input_size(out, height, count_p2sh=False, coin="bitcoin", compressed
             scriptSig = 1 + (req_sigs * 72)  # OP_0 (1 byte) + 72 bytes per sig (PUSH sig (1 byte) + sig (71 bytes))
             scriptSig_len = int(ceil(scriptSig / float(256)))
         elif segwit[0] and segwit[1] == "P2WPKH":
-            scriptSig = 27 # PUSH sig (1 byte) + sig (71 bytes) + PUSH pk (1 byte) + pk (33 bytes) (106 / 4 = 27)
+            scriptSig = 27  # PUSH sig (1 byte) + sig (71 bytes) + PUSH pk (1 byte) + pk (33 bytes) (106 / 4 = 27)
             scriptSig_len = 1
         else:
             # All other types (non-standard outs) are counted just as the fixed size + 1 byte of the scripSig_len
@@ -786,10 +786,10 @@ def get_est_input_size(out, height, p2pkh_pksize, p2sh_scriptsize, nonstd_script
             scriptSig = 1 + (req_sigs * 73)  # OP_0 (1 byte) + 72 bytes per sig (PUSH sig (1 byte) + sig (72 bytes))
             scriptSig_len = int(ceil(scriptSig / float(256)))
         elif segwit[0] and segwit[1] == "P2WPKH":
-            scriptSig = 27 # PUSH sig (1 byte) + sig (72 bytes) + PUSH pk (1 byte) + pk (33 bytes) (107 / 4 = 27)
+            scriptSig = 27  # PUSH sig (1 byte) + sig (72 bytes) + PUSH pk (1 byte) + pk (33 bytes) (107 / 4 = 27)
             scriptSig_len = 1
         elif segwit[0] and segwit[1] == "P2WSH":
-            scriptSig = ceil(p2wsh_scriptsize/4.0)
+            scriptSig = ceil(p2wsh_scriptsize / 4.0)
             scriptSig_len = int(ceil(scriptSig / float(256)))
         else:
             # All other types (non-standard outs)
@@ -868,7 +868,6 @@ def deobfuscate_value(obfuscation_key, value):
 
 
 def roundup_rate(fee_rate, fee_step=FEE_STEP):
-
     """
     Rounds up a given fee rate to the nearest fee_step (FEE_STEP by default). If the rounded value it the value itself,
     adds fee_step, assuring that the returning rate is always bigger than the given one.
@@ -968,4 +967,3 @@ def get_serialized_size_fast(utxo):
     out_size += 8
 
     return out_size
-

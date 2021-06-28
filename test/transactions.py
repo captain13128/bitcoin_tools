@@ -23,7 +23,6 @@ for addr in btc_addrs:
     sks.append(sk)
     pks.append(pk)
 
-
 for i in range(3):
     if i is 0:
         print("\n#############\n# FROM P2PK #\n#############")

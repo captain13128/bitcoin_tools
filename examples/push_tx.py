@@ -18,9 +18,9 @@ from bitcoinrpc.authproxy import AuthServiceProxy
 
 
 # Set RPC configuration
-rpc_user = ""       # set roc user
-rpc_password = ""   # set rpc password
-rpc_server = ""     # set rpc server
+rpc_user = ""  # set roc user
+rpc_password = ""  # set rpc password
+rpc_server = ""  # set rpc server
 rpc_port = 18332
 
 # Test connection

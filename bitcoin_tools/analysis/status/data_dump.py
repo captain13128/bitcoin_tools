@@ -105,7 +105,7 @@ def utxo_dump(fin_name, fout_name, coin, count_p2sh=False, non_std_only=False):
 
                 raw_np = out["amount"] / float(min_size)
                 raw_np_est = out["amount"] / float(get_est_input_size(out, utxo["height"], p2pkh_pksize,
-                                                                      p2sh_scriptsize,nonstd_scriptsize,
+                                                                      p2sh_scriptsize, nonstd_scriptsize,
                                                                       p2wsh_scriptsize, max_height))
 
                 dust = roundup_rate(raw_dust, FEE_STEP)

@@ -281,7 +281,7 @@ class TX:
         for i in range(self.inputs):
             serialized_tx += change_endianness(self.prev_tx_id[i])  # 32-byte hash of the previous transaction (LE).
             serialized_tx += change_endianness(int2bytes(self.prev_out_index[i], 4))  # 4-byte output index (LE)
-            serialized_tx += encode_varint(len(self.scriptSig[i].content) / 2)   # Varint input script length.
+            serialized_tx += encode_varint(len(self.scriptSig[i].content) / 2)  # Varint input script length.
             # ScriptSig
             serialized_tx += self.scriptSig[i].content  # Input script.
             serialized_tx += int2bytes(self.nSequence[i], 4)  # 4-byte sequence number.
@@ -293,7 +293,7 @@ class TX:
             for i in range(self.outputs):
                 serialized_tx += change_endianness(int2bytes(self.value[i], 8))  # 8-byte field Satoshi value (LE)
                 # ScriptPubKey
-                serialized_tx += encode_varint(len(self.scriptPubKey[i].content) / 2)   # Varint Output script length.
+                serialized_tx += encode_varint(len(self.scriptPubKey[i].content) / 2)  # Varint Output script length.
                 serialized_tx += self.scriptPubKey[i].content  # Output script.
 
         serialized_tx += int2bytes(self.nLockTime, 4)  # 4-byte lock time field
@@ -452,7 +452,7 @@ class TX:
             if index >= tx.outputs:
                 raise Exception("You are trying to use SIGHASH_SINGLE to sign an input that does not have a "
                                 "corresponding output (" + str(index) + "). This could lead to a irreversible lose "
-                                "of funds. Signature process aborted.")
+                                                                        "of funds. Signature process aborted.")
             # Otherwise, all outputs will set to empty scripts but the ith one (identified by index),
             # since SIGHASH_SINGLE should only sign the ith input with the ith output.
             else:

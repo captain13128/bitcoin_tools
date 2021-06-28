@@ -105,7 +105,6 @@ class Script(metaclass=ABCMeta):
 
         return Script.deserialize(self.content).split()[i]
 
-
     @abstractmethod
     def P2PK(self):
         pass
@@ -229,7 +228,7 @@ class OutputScript(Script):
         script = cls()
         if check_public_key(pk):
             script.type = "P2PK"
-            script.content = script.serialize("<"+pk+"> OP_CHECKSIG")
+            script.content = script.serialize("<" + pk + "> OP_CHECKSIG")
 
         return script
 

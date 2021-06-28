@@ -1,5 +1,6 @@
 import os
 import matplotlib as mpl
+
 if not "DISPLAY" in list(os.environ.keys()):
     mpl.use('Agg')
 import matplotlib.pyplot as plt
@@ -26,7 +27,7 @@ def get_counts(samples, normalize=False):
 
     if normalize:
         total = sum(ys)
-        ys = [float(y)/float(total) for y in ys]
+        ys = [float(y) / float(total) for y in ys]
 
     return [xs, ys]
 
@@ -132,9 +133,9 @@ def plot_pie(values, labels, title, colors, save_fig=False, font_size=20, labels
     if labels_out:
         # Plots percentages and labels as legend (in a separate box)
         ax.pie(values, colors=colors,
-                                autopct='%1.1f%%', startangle=90, pctdistance=1.3, wedgeprops={'linewidth': 0})
+               autopct='%1.1f%%', startangle=90, pctdistance=1.3, wedgeprops={'linewidth': 0})
         s = float(np.sum(values))
-        perc = [v/s*100 for v in values]
+        perc = [v / s * 100 for v in values]
         plt.legend(loc="best", labels=['%s, %1.1f %%' % (l, s) for l, s in zip(labels, perc)], fontsize="x-small")
     else:
         # Plot percentages in the pie and labels around the pie

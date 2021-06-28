@@ -43,7 +43,6 @@ def count_before_fork(fin_name, fork_height=478558):
 
 
 if __name__ == '__main__':
-
     """
     Analyses two chainstates, belonging to a fork of the same coin:
     * Counts how many UTXOs they have in common
@@ -66,6 +65,6 @@ if __name__ == '__main__':
     before_bu, after_bu = count_before_fork(decoded_utxo_files[1])
 
     print(("Bitcoin UTXO set has {} UTXOs with height <= fork date (of a total of {})".
-          format(before_btc, before_btc + after_btc)))
+           format(before_btc, before_btc + after_btc)))
     print(("BitcoinCash UTXO set has {} UTXOs with height <= fork date  (of a total of {})".
-          format(before_bu, before_bu + after_bu)))
+           format(before_bu, before_bu + after_bu)))

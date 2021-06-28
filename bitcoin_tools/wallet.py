@@ -117,7 +117,7 @@ def pk_to_btc_addr(pk, v='test'):
     return btc_addr
 
 
-def generate_btc_addr(pk, v='test',  compressed=True):
+def generate_btc_addr(pk, v='test', compressed=True):
     """ Calculates Bitcoin address associated to a given elliptic curve public key and a given network.
 
     :param pk: ECDSA VerifyingKey object (public key to be converted into Bitcoin address).

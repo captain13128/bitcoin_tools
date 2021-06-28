@@ -1,6 +1,6 @@
 import os
 import matplotlib as mpl
-if not "DISPLAY" in os.environ.keys():
+if not "DISPLAY" in list(os.environ.keys()):
     mpl.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np

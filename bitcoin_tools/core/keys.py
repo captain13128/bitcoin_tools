@@ -1,4 +1,4 @@
-from bitcoin_tools import CFG
+# from bitcoin_tools import CFG
 from bitcoin_tools.utils import change_endianness, int2bytes
 from bitcoin.core.script import SIGHASH_ALL, SIGHASH_SINGLE, SIGHASH_NONE
 
@@ -23,7 +23,7 @@ def generate_keys():
     return sk, pk
 
 
-def store_keys(sk, pk, btc_addr, vault_path=None):
+def store_keys(sk, pk, btc_addr, vault_path):
     """ Stores an elliptic curve key pair in PEM format into disk. Both keys are stored in a folder named after the
     Bitcoin address derived from the public key.
 
@@ -39,8 +39,8 @@ def store_keys(sk, pk, btc_addr, vault_path=None):
     :rtype: None
     """
 
-    if vault_path is None:
-        vault_path = CFG.address_vault
+    # if vault_path is None:
+    #     vault_path = CFG.address_vault
 
     if not path.exists(vault_path + btc_addr):
         mkdir(vault_path + btc_addr)
@@ -50,7 +50,7 @@ def store_keys(sk, pk, btc_addr, vault_path=None):
     open(vault_path + btc_addr + '/pk.pem', "w").write(pk)
 
 
-def load_keys(btc_addr, vault_path=None):
+def load_keys(btc_addr, vault_path):
     """ Loads an elliptic curve key pair in PEM format from disk. Keys are stored in their proper objects from the ecdsa
     python library (SigningKey and VerifyingKey respectively)
 
@@ -62,8 +62,8 @@ def load_keys(btc_addr, vault_path=None):
     :rtype: SigningKey, VerifyingKey
     """
 
-    if vault_path is None:
-        vault_path = CFG.address_vault
+    # if vault_path is None:
+    #     vault_path = CFG.address_vault
 
     sk_pem = open(vault_path + btc_addr + '/sk.pem', "r").read()
     pk_pem = open(vault_path + btc_addr + '/pk.pem', "r").read()

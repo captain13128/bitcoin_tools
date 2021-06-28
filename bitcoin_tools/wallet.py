@@ -6,7 +6,7 @@ from re import match
 from base58 import b58encode, b58decode
 from qrcode import make as qr_make
 
-from bitcoin_tools import CFG
+# from bitcoin_tools import CFG
 from bitcoin_tools.core.keys import serialize_pk, serialize_sk
 
 # Network codes
@@ -190,38 +190,38 @@ def sk_to_wif(sk, compressed=True, mode='image', v='test'):
     return response
 
 
-def generate_wif(btc_addr, sk, mode='image', v='test', vault_path=None):
-    """ Generates a Wallet Import Format (WIF) file into disk. Uses an elliptic curve private key from disk as an input
-    using the btc_addr associated to the public key of the same key pair as an identifier.
-
-    :param btc_addr: Bitcoin address associated to the public key of the same key pair as the private key.
-    :type btc_addr: hex str
-    :param sk: Private key to be converted into Wallet Import Format (WIF).
-    :type sk: ECDSA SigningKey object.
-    :param mode: defines the type of return.
-    :type mode: str
-    :param v: version (prefix) used to calculate the WIF, it depends on the type of network.
-    :type v: str
-    :param vault_path: Path where WIF file will be stored be stored. Defined in the config file by default.
-    :type vault_path: str
-    :return: None.
-    :rtype: None
-    """
-
-    # Get a private key in hex format and create the WIF representation.
-    wif = sk_to_wif(serialize_sk(sk), mode=mode, v=v)
-
-    if vault_path is None:
-        vault_path = CFG.address_vault
-
-    # Store the result depending on the selected mode.
-    if not path.exists(vault_path + btc_addr):
-        mkdir(vault_path + btc_addr)
-
-    if mode is 'image':
-        wif.save(vault_path + btc_addr + "/WIF.png")
-    elif mode is 'text':
-        f = file(vault_path + btc_addr + "/WIF.txt", 'w')
-        f.write(wif)
-    else:
-        raise Exception("Invalid mode, used either 'image' or 'text'.")
+# def generate_wif(btc_addr, sk, mode='image', v='test', vault_path=None):
+#     """ Generates a Wallet Import Format (WIF) file into disk. Uses an elliptic curve private key from disk as an input
+#     using the btc_addr associated to the public key of the same key pair as an identifier.
+#
+#     :param btc_addr: Bitcoin address associated to the public key of the same key pair as the private key.
+#     :type btc_addr: hex str
+#     :param sk: Private key to be converted into Wallet Import Format (WIF).
+#     :type sk: ECDSA SigningKey object.
+#     :param mode: defines the type of return.
+#     :type mode: str
+#     :param v: version (prefix) used to calculate the WIF, it depends on the type of network.
+#     :type v: str
+#     :param vault_path: Path where WIF file will be stored be stored. Defined in the config file by default.
+#     :type vault_path: str
+#     :return: None.
+#     :rtype: None
+#     """
+#
+#     # Get a private key in hex format and create the WIF representation.
+#     wif = sk_to_wif(serialize_sk(sk), mode=mode, v=v)
+#
+#     if vault_path is None:
+#         vault_path = CFG.address_vault
+#
+#     # Store the result depending on the selected mode.
+#     if not path.exists(vault_path + btc_addr):
+#         mkdir(vault_path + btc_addr)
+#
+#     if mode is 'image':
+#         wif.save(vault_path + btc_addr + "/WIF.png")
+#     elif mode is 'text':
+#         f = file(vault_path + btc_addr + "/WIF.txt", 'w')
+#         f.write(wif)
+#     else:
+#         raise Exception("Invalid mode, used either 'image' or 'text'.")
